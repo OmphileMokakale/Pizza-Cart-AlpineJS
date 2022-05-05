@@ -18,8 +18,9 @@
       fields: [],
       addNewField() {
           this.fields.push({
-              txt1: '',
-              txt2: ''
+              txt1: 'hey there',
+              txt2: '',
+              txt3: 'love'
            });
         },
         removeField(index) {
@@ -51,15 +52,10 @@
         </div>
 
         <div class="order" class="col" x-data="{show: false}">
-          <button @click="show=!show">Order</button>
+          <button type="button" class="btn btn-info" @click="show=!show">Order</button>
           <div x-show.transition="show">
               Pizza Added to the cart
           </div>
-          <tfoot>
-            <tr>
-              <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+ Order</button></td>
-           </tr>
-         </tfoot>
       </div>
       
 
@@ -82,7 +78,7 @@
         </div>
 
         <div class="order" class="col" x-data="{show: false}">
-          <button @click="show=!show">Order</button>
+          <button type="button" class="btn btn-info"  @click="show=!show">Order</button>
           <div x-show.transition="show">
               Pizza Added to the cart
           </div>
@@ -110,7 +106,7 @@
 
         
         <div class="order" class="col" x-data="{show: false}">
-          <button @click="show=!show">Order</button>
+          <button type="button" class="btn btn-info" @click="show=!show">Order</button>
           <div x-show.transition="show">
               Pizza Added to the cart
           </div>
@@ -120,13 +116,8 @@
     </div>
 <br>
 <div>
- 
   <h2 class="section-header" style="text-align: center;">CART</h2>
-  <div class="col" x-data="{ title: 'R0.00' }">
-    Payment: <input type="text" x-model="title">
-    <p x-text="title"></p>
-   
-</div>
+
 </div>
 
 <div class="row" x-data="handler()">
@@ -145,18 +136,34 @@
         <td x-text="index + 1"></td>
         <td><input x-model="field.txt1" type="text" name="txt1[]" class="form-control"></td>
         <td><input x-model="field.txt2" type="text" name="txt2[]" class="form-control"></td>
-        <td><input x-model="field.txt3" type="text" name="txt2[]" class="form-control"></td>
+        <td><input x-model="field.txt3" type="text" name="txt3[]" class="form-control"></td>
          <td><button type="button" class="btn btn-danger btn-small" @click="removeField(index)">&times;</button></td>
       </tr>
      </template>
     </tbody>
     <tfoot>
        <tr>
-         <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+ Add Small Pizza</button></td>
+         <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Small</button></td>
       </tr>
     </tfoot>
+    <tfoot>
+      <tr>
+        <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Medium</button></td>
+     </tr>
+   </tfoot>
+   <tfoot>
+    <tr>
+      <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Large</button></td>
+   </tr>
+ </tfoot>
   </table>
   </div>
+   <div class="col" x-data="{ title: 'R0.00' }">
+    Payment: <input type="text" x-model="title">
+    <p x-text="title"></p>
+    <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">Checkout</button></td>
+   
+</div>
   </div>
 
     <div class="footer">
