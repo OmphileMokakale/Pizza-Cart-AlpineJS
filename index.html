@@ -1,69 +1,186 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-   <!--CSS -->
-   <link rel="stylesheet" href="style.css">
+  <!--CSS -->
+  <link rel="stylesheet" href="style.css">
+   <!-- Bootstrap CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>Perfect Pizza</title>
 </head>
+
 <body>
+  <script>
+    function handler() {
+    return {
+      fields: [],
+      addNewField() {
+          this.fields.push({
+              txt1: '',
+              txt2: ''
+           });
+        },
+        removeField(index) {
+           this.fields.splice(index, 1);
+         }
+      }
+ }
+  </script>
   <div>
     <div>
-        <h1>Perfect Pizza</h1>
+      <h1>Perfect Pizza</h1>
     </div>
     <div class="specials">
-        <div class="medium">
-          <img  src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg" alt="">
-          <h2>Medium Pizza</h2>
-          <h3>R78.99</h3>
-          <i>
-            medium margeritha pizza with 3 toppings max.
-            2 or less meat topping.
-            3 or less other toppings.
-          </i>
-          
+      <div class="medium">
+        <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
+          alt="">
+        <h2>Medium Pizza</h2>
+        <h3>R78.99</h3>
+        <i>
+          medium margeritha pizza with 3 toppings max.
+          2 or less meat topping.
+          3 or less other toppings.
+        </i>
+        <!-- button -->
+        <div class="quantity" class="col" x-data="{ count: 0 }">
+          <p x-text="count"></p>
+          <button @click="count++">+</button>
+          <button @click="count--">-</button>
         </div>
-        <div class="large">
-          <img  src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg" alt="">
-          <h2>Large Pizza</h2>
-          <h3>R114.99</h3>
-            <i>
-            large margeritha pizza with 3 toppings max.
-            3 meat toppings max.
-            3 or less other toppings.
-          </i>
+
+        <div class="order" class="col" x-data="{show: false}">
+          <button @click="show=!show">Order</button>
+          <div x-show.transition="show">
+              Pizza Added to the cart
+          </div>
+          <tfoot>
+            <tr>
+              <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+ Order</button></td>
+           </tr>
+         </tfoot>
+      </div>
+      
+
+      </div>
+      <div class="large">
+        <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
+          alt="">
+        <h2>Large Pizza</h2>
+        <h3>R114.99</h3>
+        <i>
+          large margeritha pizza with 3 toppings max.
+          3 meat toppings max.
+          3 or less other toppings.
+        </i>
+        <!-- button -->
+        <div class="quantity" class="col" x-data="{ count: 0 }">
+          <p x-text="count"></p>
+          <button @click="count++">+</button>
+          <button @click="count--">-</button>
         </div>
-        <div class="small">
-          <img  src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg" alt="">
-          <h2>Small Pizza</h2>
-          <h3>R48.99</h3>
-          <i>
-            <ul>
-              <li>small pizza with 3 toppings</li>
-              <li>1 meat topping.</li>
-              <li>3 or less other toppings.</li>
-            </ul>
-          </i>
+
+        <div class="order" class="col" x-data="{show: false}">
+          <button @click="show=!show">Order</button>
+          <div x-show.transition="show">
+              Pizza Added to the cart
+          </div>
+      </div>
+      </div>
+      <div class="small">
+        <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
+          alt="">
+        <h2>Small Pizza</h2>
+        <h3>R48.99</h3>
+        <i>
+          <ul>
+            <li>small pizza with 3 toppings</li>
+            <li>1 meat topping.</li>
+            <li>3 or less other toppings.</li>
+          </ul>
+        </i>
+
+        <!-- button -->
+        <div class="quantity" class="col" x-data="{ count: 0 }">
+          <p x-text="count"></p>
+          <button @click="count++">+</button>
+          <button @click="count--">-</button>
         </div>
+
+        
+        <div class="order" class="col" x-data="{show: false}">
+          <button @click="show=!show">Order</button>
+          <div x-show.transition="show">
+              Pizza Added to the cart
+          </div>
+      </div>
+
+      </div>
     </div>
+<br>
+<div>
+ 
+  <h2 class="section-header" style="text-align: center;">CART</h2>
+  <div class="col" x-data="{ title: 'R0.00' }">
+    Payment: <input type="text" x-model="title">
+    <p x-text="title"></p>
+   
+</div>
+</div>
+
+<div class="row" x-data="handler()">
+  <div class="col">
+  <table class="table table-bordered align-items-center table-sm">
+    <thead class="thead-light">
+     <tr>
+       <th>#</th>
+       <th>Pizza Size</th>                            <th>Quantity</th>    <th>Price</th>
+       <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <template x-for="(field, index) in fields" :key="index">
+       <tr>
+        <td x-text="index + 1"></td>
+        <td><input x-model="field.txt1" type="text" name="txt1[]" class="form-control"></td>
+        <td><input x-model="field.txt2" type="text" name="txt2[]" class="form-control"></td>
+        <td><input x-model="field.txt3" type="text" name="txt2[]" class="form-control"></td>
+         <td><button type="button" class="btn btn-danger btn-small" @click="removeField(index)">&times;</button></td>
+      </tr>
+     </template>
+    </tbody>
+    <tfoot>
+       <tr>
+         <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+ Add Small Pizza</button></td>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+  </div>
+
     <div class="footer">
-        <div class="contact">
-            <strong>Contact us at:</strong>
-            (021)-541-1000
-          
-          <strong>twitter /fb /insta </strong> @perfectpizza
-        </div> 
-        <div class="address">
-            Pizza Plaza
-            <br>
-            Dough Road
-            <br>
-            Base Town
-            <br>
-            7890
-        </div>
+      <div class="contact">
+        <strong>Contact us at:</strong>
+        (021)-541-1000
+
+        <strong>twitter /fb /insta </strong> @perfectpizza
+      </div>
+      <div class="address">
+        Pizza Plaza
+        <br>
+        Dough Road
+        <br>
+        Base Town
+        <br>
+        7890
+      </div>
     </div>
   </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
 </body>
+
 </html>
