@@ -18,9 +18,9 @@
       fields: [],
       addNewField() {
           this.fields.push({
-              txt1: 'hey there',
-              txt2: '',
-              txt3: 'love'
+              size: 'Pizza added',
+              quantity: '1',
+              price: 'R48, 99'
            });
         },
         removeField(index) {
@@ -31,8 +31,74 @@
   </script>
   <div>
     <div>
-      <h1>Perfect Pizza</h1>
+      <h1 class="section-header" style="text-align: center;">Perfect Pizza</h1>
     </div>
+
+     <div class="cartTotal " >
+      <strong>Total price</strong>  
+      <span class="cartTotalPrice">0.00</span>
+      <a href="#">
+        <img src="shopping-cart.png" alt="">
+      </a>
+<br>
+<br>
+      <div class="col" x-data="{ title: 'R0.00' }">
+        Payment: <input type="text" x-model="title">
+        <p x-text="title"></p>
+        <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">Checkout</button></td>
+       
+    </div>
+
+    </div>
+
+    <div>
+      <h2 class="section-header">CART</h2>
+    
+    </div>
+    
+    <div class="row" x-data="handler()">
+      <div class="col">
+      <table class="table table-bordered align-items-center table-sm">
+        <thead class="thead-light">
+         <tr>
+           <th>#</th>
+           <th>Pizza Size</th>                            <th>Quantity</th>    <th>Price</th>
+           <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="(field, index) in fields" :key="index">
+           <tr>
+            <td x-text="index + 1"></td>
+            <td><input x-model="field.size" type="text" name="size[]" class="form-control"></td>
+            <td><input x-model="field.quantity" type="text" name="quantity[]" class="form-control"></td>
+            <td><input x-model="field.price" type="text" name="price[]" class="form-control"></td>
+             <td><button type="button" class="btn btn-danger btn-small" @click="removeField(index)">&times;</button></td>
+          </tr>
+         </template>
+        </tbody>
+        <tfoot>
+           <tr>
+             <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Small</button></td>
+          </tr>
+        </tfoot>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Medium</button></td>
+         </tr>
+       </tfoot>
+       <tfoot>
+        <tr>
+          <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Large</button></td>
+       </tr>
+     </tfoot>
+      </table>
+      </div>
+       <div class="col">
+
+       
+    </div>
+      </div>
     <div class="specials">
       <div class="medium">
         <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
@@ -115,56 +181,7 @@
       </div>
     </div>
 <br>
-<div>
-  <h2 class="section-header" style="text-align: center;">CART</h2>
 
-</div>
-
-<div class="row" x-data="handler()">
-  <div class="col">
-  <table class="table table-bordered align-items-center table-sm">
-    <thead class="thead-light">
-     <tr>
-       <th>#</th>
-       <th>Pizza Size</th>                            <th>Quantity</th>    <th>Price</th>
-       <th>Remove</th>
-      </tr>
-    </thead>
-    <tbody>
-      <template x-for="(field, index) in fields" :key="index">
-       <tr>
-        <td x-text="index + 1"></td>
-        <td><input x-model="field.txt1" type="text" name="txt1[]" class="form-control"></td>
-        <td><input x-model="field.txt2" type="text" name="txt2[]" class="form-control"></td>
-        <td><input x-model="field.txt3" type="text" name="txt3[]" class="form-control"></td>
-         <td><button type="button" class="btn btn-danger btn-small" @click="removeField(index)">&times;</button></td>
-      </tr>
-     </template>
-    </tbody>
-    <tfoot>
-       <tr>
-         <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Small</button></td>
-      </tr>
-    </tfoot>
-    <tfoot>
-      <tr>
-        <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Medium</button></td>
-     </tr>
-   </tfoot>
-   <tfoot>
-    <tr>
-      <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Large</button></td>
-   </tr>
- </tfoot>
-  </table>
-  </div>
-   <div class="col" x-data="{ title: 'R0.00' }">
-    Payment: <input type="text" x-model="title">
-    <p x-text="title"></p>
-    <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">Checkout</button></td>
-   
-</div>
-  </div>
 
     <div class="footer">
       <div class="contact">
