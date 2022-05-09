@@ -12,11 +12,27 @@
 </head>
 
 <body>
-  <script>
+  <!-- <script>
     function handler() {
     return {
-      fields: [],
-      addNewField() {
+      fields: [{
+        size: ' ',
+        quantity: 0,
+        price: 0
+      }],
+      addNewField(size) {
+        console.log(this.fields.indexOf({size: size}) )
+
+        // if (this.fields.indexOf(size) ) {
+          
+        // }
+        if (size ==='small') {
+          this.fields.push({
+              size: 'small',
+              quantity: 1,
+              price: 'R48, 99'
+           });
+        }
           this.fields.push({
               size: 'Pizza added',
               quantity: '1',
@@ -28,12 +44,14 @@
          }
       }
  }
-  </script>
+
+ console.log('testing');
+  </script> -->
   <div>
     <div>
       <h1 class="section-header" style="text-align: center;">Perfect Pizza</h1>
     </div>
-
+<br>
      <div class="cartTotal " >
       <strong>Total price</strong>  
       <span class="cartTotalPrice">0.00</span>
@@ -51,12 +69,86 @@
 
     </div>
 
-    <div>
-      <h2 class="section-header">CART</h2>
+
+</head>
+<body>
+
+<div class="Mycontainer">
+  <h2 class="section-header">Shopping CART</h2>
+  <div class="content">
+    <div class="specials">
+      <div class="large" x-data="{show: false}">
+        <button type="button" class="btn btn-info" @click="show=!show">Order Large Pizza</button>
+        <div x-show.transition="show">
+          
+          <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
+          alt="">
     
+           <!-- button -->
+      <div x-data="{ count: 1 }" >
+       Quantity: <p x-text="count"></p>
+        <button @click="count++">+</button>
+        <button @click="count--">-</button>
+      </div>
+    
+      price: R114.99
+    
+      <button type="button" class="btn btn-info" @click="show=!show">Remove</button>
+      
+        </div>
     </div>
     
-    <div class="row" x-data="handler()">
+    <div class="medium" x-data="{show: false}">
+      <button type="button" class="btn btn-info" @click="show=!show">Order Medium Pizza</button>
+      <div x-show.transition="show">
+        
+        <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
+        alt="">
+    
+         <!-- button -->
+    <div x-data="{ count: 0 }" >
+     Quantity: <p x-text="count"></p>
+      <button @click="count++">+</button>
+      <button @click="count--">-</button>
+    </div>
+    
+    price: R78.99
+    
+    <button type="button" class="btn btn-info" @click="show=!show">Remove</button>
+    
+      </div>
+    </div>
+    
+    
+    <div class="small" x-data="{show: false}">
+      <button type="button" class="btn btn-info" @click="show=!show">Order Small Pizza</button>
+      <div x-show.transition="show">
+        
+        <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
+        alt="">
+    
+         <!-- button -->
+    <div x-data="{ count: 0 }" >
+     Quantity: <p x-text="count"></p>
+      <button @click="count++">+</button>
+      <button @click="count--">-</button>
+    </div>
+    
+    price: R48.99
+    
+    <button type="button" class="btn btn-info" @click="show=!show">Remove</button>
+    
+      </div>
+    </div>
+    
+    
+    </div>
+  </div>
+  
+</div>
+
+<div class="container mt-5">
+    <!-- <div class="row" x-data="handler()">
       <div class="col">
       <table class="table table-bordered align-items-center table-sm">
         <thead class="thead-light">
@@ -76,20 +168,24 @@
              <td><button type="button" class="btn btn-danger btn-small" @click="removeField(index)">&times;</button></td>
           </tr>
          </template>
-        </tbody>
-        <tfoot>
-           <tr>
-             <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Small</button></td>
-          </tr>
+        </tbody> -->
+        <!-- <tfoot>
+           <tr> -->
+            <!-- <div x-data="{ buttonDisabled: false }">
+              <button x-on:click="buttonDisabled = true" x-bind:disabled="buttonDisabled">Save</button> -->
+          
+             <!-- <td colspan="4" class="text-right"><button type="button" name="small" class="btn btn-info" @click="addNewField('small')">+Small</button></td> -->
+            <!-- </div> -->
+          <!-- </tr>
         </tfoot>
         <tfoot>
           <tr>
-            <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Medium</button></td>
+            <td colspan="4" class="text-right"><button type="button" name="medium" class="btn btn-info" @click="addNewField('medium')">+Medium</button></td>
          </tr>
        </tfoot>
        <tfoot>
         <tr>
-          <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">+Large</button></td>
+          <td colspan="4" class="text-right"><button type="button" name="large" class="btn btn-info" @click="addNewField('large')">+Large</button></td>
        </tr>
      </tfoot>
       </table>
@@ -97,7 +193,7 @@
        <div class="col">
 
        
-    </div>
+    </div> -->
       </div>
     <div class="specials">
       <div class="medium">
@@ -110,20 +206,6 @@
           2 or less meat topping.
           3 or less other toppings.
         </i>
-        <!-- button -->
-        <div class="quantity" class="col" x-data="{ count: 0 }">
-          <p x-text="count"></p>
-          <button @click="count++">+</button>
-          <button @click="count--">-</button>
-        </div>
-
-        <div class="order" class="col" x-data="{show: false}">
-          <button type="button" class="btn btn-info" @click="show=!show">Order</button>
-          <div x-show.transition="show">
-              Pizza Added to the cart
-          </div>
-      </div>
-      
 
       </div>
       <div class="large">
@@ -136,19 +218,7 @@
           3 meat toppings max.
           3 or less other toppings.
         </i>
-        <!-- button -->
-        <div class="quantity" class="col" x-data="{ count: 0 }">
-          <p x-text="count"></p>
-          <button @click="count++">+</button>
-          <button @click="count--">-</button>
-        </div>
 
-        <div class="order" class="col" x-data="{show: false}">
-          <button type="button" class="btn btn-info"  @click="show=!show">Order</button>
-          <div x-show.transition="show">
-              Pizza Added to the cart
-          </div>
-      </div>
       </div>
       <div class="small">
         <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
@@ -162,22 +232,6 @@
             <li>3 or less other toppings.</li>
           </ul>
         </i>
-
-        <!-- button -->
-        <div class="quantity" class="col" x-data="{ count: 0 }">
-          <p x-text="count"></p>
-          <button @click="count++">+</button>
-          <button @click="count--">-</button>
-        </div>
-
-        
-        <div class="order" class="col" x-data="{show: false}">
-          <button type="button" class="btn btn-info" @click="show=!show">Order</button>
-          <div x-show.transition="show">
-              Pizza Added to the cart
-          </div>
-      </div>
-
       </div>
     </div>
 <br>

@@ -99,3 +99,28 @@ body {
 		border-radius: 0.25em;
 		/* z-index: 1000; */
 	}
+
+  .Mycontainer {
+    box-shadow: 0 0 0.25rem rgb(28, 158, 169) inset;
+    height: 250px;
+    overflow: auto;
+    position: relative;
+    width: 800px;
+    padding-bottom: 150px;
+    /* margin-bottom: 20px; */
+    /* // hide scrollbars */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    /* &::-webkit-scrollbar {
+      display: none;
+    } */
+  }
+  
+  .content {
+    border: solid 1rem rgb(143, 139, 26);
+    width: 800px;
+  }
+
+  .section-header{
+    text-align: center;
+  }
