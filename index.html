@@ -12,188 +12,104 @@
 </head>
 
 <body>
-  <!-- <script>
-    function handler() {
-    return {
-      fields: [{
-        size: ' ',
-        quantity: 0,
-        price: 0
-      }],
-      addNewField(size) {
-        console.log(this.fields.indexOf({size: size}) )
 
-        // if (this.fields.indexOf(size) ) {
-          
-        // }
-        if (size ==='small') {
-          this.fields.push({
-              size: 'small',
-              quantity: 1,
-              price: 'R48, 99'
-           });
-        }
-          this.fields.push({
-              size: 'Pizza added',
-              quantity: '1',
-              price: 'R48, 99'
-           });
-        },
-        removeField(index) {
-           this.fields.splice(index, 1);
-         }
-      }
- }
-
- console.log('testing');
-  </script> -->
-  <div>
+  <div x-data="{small:0, medium:0, large:0, get total(){ return (this.small * 48.99 + this.medium * 78.99 + this.large * 114.99 ).toFixed(2)}, checkout: false, paid:''}">
     <div>
       <h1 class="section-header" style="text-align: center;">Perfect Pizza</h1>
     </div>
-<br>
-     <div class="cartTotal " >
-      <strong>Total price</strong>  
-      <span class="cartTotalPrice">0.00</span>
-      <a href="#">
-        <img src="shopping-cart.png" alt="">
-      </a>
-<br>
-<br>
-      <div class="col" x-data="{ title: 'R0.00' }">
-        Payment: <input type="text" x-model="title">
-        <p x-text="title"></p>
-        <td colspan="4" class="text-right"><button type="button" class="btn btn-info" @click="addNewField()">Checkout</button></td>
-       
-    </div>
-
-    </div>
-
-
-</head>
-<body>
-
-<div class="Mycontainer">
-  <h2 class="section-header">Shopping CART</h2>
-  <div class="content">
-    <div class="specials">
-      <div class="large" x-data="{show: false}">
-        <button type="button" class="btn btn-info" @click="show=!show">Order Large Pizza</button>
-        <div x-show.transition="show">
-          
-          <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
-          alt="">
     
-           <!-- button -->
-      <div x-data="{ count: 1 }" >
-       Quantity: <p x-text="count"></p>
-        <button @click="count++">+</button>
-        <button @click="count--">-</button>
-      </div>
-    
-      price: R114.99
-    
-      <button type="button" class="btn btn-info" @click="show=!show">Remove</button>
-      
+    <div class="cart" x-show="small != 0 || medium != 0 || large != 0">
+
+      <template x-if="small > 0">
+        <div class="small-cart">
+          Small:
+          <template x-if="!checkout">
+            <button @click="small++">+</button> </template
+          ><span x-text="small"></span
+          ><template x-if="!checkout"
+            ><button @click="small--">-</button></template
+          >
+          <span>@ R<span x-text="(small * 48.99).toFixed(2)"></span></span>
         </div>
+      </template>
+
+      <template x-if="medium > 0">
+        <div class="medium-cart">
+          medium:
+          <template x-if="!checkout">
+            <button @click="small++">+</button> </template
+          ><span x-text="medium"></span
+          ><template x-if="!checkout"
+            ><button @click="medium--">-</button></template
+          >
+          <span>@ R<span x-text="(medium * 79.99).toFixed(2)"></span></span>
+        </div>
+      </template>
+
+      <template x-if="large > 0">
+        <div class="large-cart">
+          Large:
+          <template x-if="!checkout">
+            <button @click="large++">+</button> </template
+          ><span x-text="large"></span
+          ><template x-if="!checkout"
+            ><button @click="large--">-</button></template
+          >
+          <span>@ R<span x-text="(large * 114.99).toFixed(2)"></span></span>
+        </div>
+      </template>
+
+
+        <template x-if="!checkout">
+          <button @click="checkout=!checkout">Checkout</button>
+        </template>
+        <template x-if="checkout">
+          <label
+            >Amount received from customer: R<input
+              type="number"
+              min="0"
+              step="0.01"
+              x-model="paid"
+          /></label>
+        </template>
+        <template x-if="paid == total && checkout">
+            <!-- <br> -->
+          <span>
+            <div style="color: green">Successful Payment!</div>
+            <button @click="small=0; medium=0; large=0; checkout=false;">
+              Complete Order
+            </button>
+          </span>
+        </template>
+        <template x-if="(parseInt(paid) < total && paid != total && checkout)">
+            <!-- <br> -->
+          <span>
+            <div style="color: red">Insufficient Funds!</div>
+            <button @click="small=0; medium=0; large=0; checkout=false;">
+              Cancel order
+            </button>
+          </span>
+        </template>
+        <template x-if="parseInt(paid) > total && checkout">
+          <span>
+            <div style="color: green">
+                <br>
+              Successful Payment, Here's your change: R<span
+                x-text="(parseInt(paid) - total).toFixed(2)"
+              ></span>
+            </div>
+            <button
+              @click="small=0; medium=0; large=0; checkout=false; paid=''"
+            >
+              Complete the Order
+            </button>
+          </span>
+        </template>
+
     </div>
-    
-    <div class="medium" x-data="{show: false}">
-      <button type="button" class="btn btn-info" @click="show=!show">Order Medium Pizza</button>
-      <div x-show.transition="show">
-        
-        <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
-        alt="">
-    
-         <!-- button -->
-    <div x-data="{ count: 0 }" >
-     Quantity: <p x-text="count"></p>
-      <button @click="count++">+</button>
-      <button @click="count--">-</button>
-    </div>
-    
-    price: R78.99
-    
-    <button type="button" class="btn btn-info" @click="show=!show">Remove</button>
-    
-      </div>
-    </div>
-    
-    
-    <div class="small" x-data="{show: false}">
-      <button type="button" class="btn btn-info" @click="show=!show">Order Small Pizza</button>
-      <div x-show.transition="show">
-        
-        <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
-        alt="">
-    
-         <!-- button -->
-    <div x-data="{ count: 0 }" >
-     Quantity: <p x-text="count"></p>
-      <button @click="count++">+</button>
-      <button @click="count--">-</button>
-    </div>
-    
-    price: R48.99
-    
-    <button type="button" class="btn btn-info" @click="show=!show">Remove</button>
-    
-      </div>
-    </div>
-    
-    
-    </div>
-  </div>
-  
-</div>
+   
 
 <div class="container mt-5">
-    <!-- <div class="row" x-data="handler()">
-      <div class="col">
-      <table class="table table-bordered align-items-center table-sm">
-        <thead class="thead-light">
-         <tr>
-           <th>#</th>
-           <th>Pizza Size</th>                            <th>Quantity</th>    <th>Price</th>
-           <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          <template x-for="(field, index) in fields" :key="index">
-           <tr>
-            <td x-text="index + 1"></td>
-            <td><input x-model="field.size" type="text" name="size[]" class="form-control"></td>
-            <td><input x-model="field.quantity" type="text" name="quantity[]" class="form-control"></td>
-            <td><input x-model="field.price" type="text" name="price[]" class="form-control"></td>
-             <td><button type="button" class="btn btn-danger btn-small" @click="removeField(index)">&times;</button></td>
-          </tr>
-         </template>
-        </tbody> -->
-        <!-- <tfoot>
-           <tr> -->
-            <!-- <div x-data="{ buttonDisabled: false }">
-              <button x-on:click="buttonDisabled = true" x-bind:disabled="buttonDisabled">Save</button> -->
-          
-             <!-- <td colspan="4" class="text-right"><button type="button" name="small" class="btn btn-info" @click="addNewField('small')">+Small</button></td> -->
-            <!-- </div> -->
-          <!-- </tr>
-        </tfoot>
-        <tfoot>
-          <tr>
-            <td colspan="4" class="text-right"><button type="button" name="medium" class="btn btn-info" @click="addNewField('medium')">+Medium</button></td>
-         </tr>
-       </tfoot>
-       <tfoot>
-        <tr>
-          <td colspan="4" class="text-right"><button type="button" name="large" class="btn btn-info" @click="addNewField('large')">+Large</button></td>
-       </tr>
-     </tfoot>
-      </table>
-      </div>
-       <div class="col">
-
-       
-    </div> -->
       </div>
     <div class="specials">
       <div class="medium">
@@ -207,6 +123,9 @@
           3 or less other toppings.
         </i>
 
+        <div>
+          <button @click="medium++">Order Medium</button>
+        </div>
       </div>
       <div class="large">
         <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
@@ -218,7 +137,9 @@
           3 meat toppings max.
           3 or less other toppings.
         </i>
-
+        <div>
+          <button @click="large++">Order large</button>
+        </div>
       </div>
       <div class="small">
         <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
@@ -232,9 +153,13 @@
             <li>3 or less other toppings.</li>
           </ul>
         </i>
+
+        <div>
+          <button @click="small++">Order Small</button>
+        </div>
+
       </div>
     </div>
-<br>
 
 
     <div class="footer">
