@@ -79,7 +79,7 @@
         <template x-if="paid == total && checkout">
             <!-- <br> -->
           <span>
-            <div style="color: green">Successful Payment!</div>
+            <div style="color: green">Successful Payment! </div>
             <button class="Mdesign AW Bdesign" @click="small=0; medium=0; large=0; checkout=false;">
               Complete Order
             </button>
@@ -88,7 +88,7 @@
         <template x-if="(parseInt(paid) < total && paid != total && checkout)">
             <!-- <br> -->
           <span>
-            <div style="color: red">Insufficient Funds!</div>
+            <div style="color: red"><h2> Insufficient Funds! </h2></div>
             <button class="Mdesign AW Bdesign" @click="small=0; medium=0; large=0; checkout=false;">
               Cancel order
             </button>
@@ -98,6 +98,7 @@
           <span>
             <div style="color: green">
                 <br>
+                
               Successful Payment, Here's your change: R<span
                 x-text="(parseInt(paid) - total).toFixed(2)"
               ></span>
